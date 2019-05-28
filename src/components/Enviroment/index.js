@@ -1,14 +1,8 @@
 import React, { Component } from 'react'
 import { MATRIX_X, MATRIX_Y } from '../../settings'
+import State from '../State';
 
 export default class Enviroment extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            enviroment: []
-        }
-    }
 
     componentWillMount() {
         this.defineEnviroment()
@@ -16,17 +10,20 @@ export default class Enviroment extends Component {
 
     defineEnviroment() {
         const {
-            obstacles
+            obstacles,
+            updateStates
         } = this.props
         const totalStates = MATRIX_X * MATRIX_Y
         let enviromentData = []
+        let rowData = []
         this.defineObstacles(totalStates)
-        console.log(obstacles)
+        //console.log(obstacles)
         let i = 1
         let j = 1
         let cont = 1
+        console.log(totalStates)
 
-        while (cont <= totalStates) {
+        while (j <= MATRIX_Y) {
             let state = {
                 x: { i },
                 y: { j }
@@ -40,16 +37,39 @@ export default class Enviroment extends Component {
                 }
             }
 
-            enviromentData.push(state)
+            rowData.push(state)
 
             if (i === MATRIX_X) {
                 i = 1
                 j++
+                enviromentData.push(rowData)
+                rowData = []
             }
             i++
             cont++
         }
         console.log(enviromentData)
+        updateStates(enviromentData)
+    }
+
+    createEnviroment() {
+        debugger
+        const { states } = this.props
+        return (
+            states.map(row => {
+                return (
+                    <tr>
+                        {this.createRow(row)}
+                    </tr>
+                )
+            })
+        )
+    }
+
+    createRow(row) {
+        row.map(state => (
+            <State state={state} />
+        ))
     }
 
     defineObstacles(totalStates) {
@@ -74,7 +94,9 @@ export default class Enviroment extends Component {
     render() {
         return (
             <div>
-
+                <table>
+                    {this.createEnviroment()}
+                </table>
             </div>
         )
     }

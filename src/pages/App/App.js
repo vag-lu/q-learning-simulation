@@ -10,8 +10,8 @@ export default class App extends Component {
       states: [],
       obstacles: []
     }
-
     this.includeObstacle = this.includeObstacle.bind(this)
+    this.updateStates = this.updateStates.bind(this)
   }
 
   setQTable(qTable) {
@@ -23,11 +23,22 @@ export default class App extends Component {
     this.setState({ obstacles: newArrayObstacles })
   }
 
+  updateStates(states){
+    debugger
+    this.setState({states: states})
+  }
+
   render() {
+    const {
+      obstacles,
+      states
+    } = this.state
     return (
       <div>
         <Enviroment
-          obstacles={this.state.obstacles}
+          obstacles={obstacles}
+          states={states}
+          updateStates={this.updateStates}
           includeObstacle={this.includeObstacle}
         />
       </div>
