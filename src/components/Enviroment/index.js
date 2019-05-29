@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { MATRIX_X, MATRIX_Y } from '../../settings'
-import State from '../State';
+import StateOfEnv from '../StateOfEnv';
+import './index.css'
 
 export default class Enviroment extends Component {
 
@@ -18,12 +19,15 @@ export default class Enviroment extends Component {
         let rowData = []
         this.defineObstacles(totalStates)
         //console.log(obstacles)
-        let i = 1
+        let i = 0
         let j = 1
         let cont = 1
         console.log(totalStates)
 
         while (j <= MATRIX_Y) {
+
+            i++
+
             let state = {
                 x: { i },
                 y: { j }
@@ -40,12 +44,12 @@ export default class Enviroment extends Component {
             rowData.push(state)
 
             if (i === MATRIX_X) {
-                i = 1
+                i = 0
                 j++
                 enviromentData.push(rowData)
                 rowData = []
             }
-            i++
+            
             cont++
         }
         console.log(enviromentData)
@@ -53,22 +57,19 @@ export default class Enviroment extends Component {
     }
 
     createEnviroment() {
-        debugger
         const { states } = this.props
         return (
-            states.map(row => {
-                return (
-                    <tr>
-                        {this.createRow(row)}
-                    </tr>
-                )
-            })
+            states.map(row => (
+                <tr>
+                    {this.createRow(row)}
+                </tr>
+            ))
         )
     }
 
     createRow(row) {
-        row.map(state => (
-            <State state={state} />
+        return row.map(state => (
+            <StateOfEnv state={state} />
         ))
     }
 
@@ -77,7 +78,7 @@ export default class Enviroment extends Component {
             obstacles,
             includeObstacle
         } = this.props
-        const percOfObstacles = Math.floor((Math.random() * (50 - 30 + 1)) + 30);
+        const percOfObstacles = Math.floor((Math.random() * (25 - 10 + 1)) + 10);
         const numberOfObstacle = Math.round((percOfObstacles / 100) * totalStates)
 
         for (let i = 1; i <= numberOfObstacle; i++) {
@@ -94,7 +95,7 @@ export default class Enviroment extends Component {
     render() {
         return (
             <div>
-                <table>
+                <table className='tbl'>
                     {this.createEnviroment()}
                 </table>
             </div>

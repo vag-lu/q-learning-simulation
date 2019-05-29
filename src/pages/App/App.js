@@ -19,12 +19,12 @@ export default class App extends Component {
   }
 
   includeObstacle(newObstacle) {
-    const newArrayObstacles = this.state.obstacles.push(newObstacle)
+    let newArrayObstacles = this.state.obstacles
+    newArrayObstacles.push(newObstacle)
     this.setState({ obstacles: newArrayObstacles })
   }
 
   updateStates(states){
-    debugger
     this.setState({states: states})
   }
 

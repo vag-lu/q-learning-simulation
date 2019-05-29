@@ -1,0 +1,12 @@
+.obstacle {
+    background-color: black;
+    height: 20px;
+}
+
+.state {
+    height: 20px;
+}
+
+.td {    
+    border: 1px solid black;
+}
