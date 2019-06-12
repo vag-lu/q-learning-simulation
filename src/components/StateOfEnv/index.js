@@ -4,11 +4,11 @@ import './index.css'
 export default class StateOfEnv extends Component {
     render() {
         const {
-            state
+            cel
         } = this.props
         
         return (
-            <td className={`td ${state.obstacle ? `obstacle` : `state`}`}></td>
+            <td className={`td ${cel.obstacle ? 'obstacle' : cel.isHere ? 'isHere' : 'state'}`}></td>
         )
     }
 }

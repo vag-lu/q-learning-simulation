@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import Enviroment from '../../components/Enviroment'
+import EviromentToolbar from '../../components/EviromentToolbar'
 
 export default class App extends Component {
   constructor(props) {
@@ -24,8 +25,8 @@ export default class App extends Component {
     this.setState({ obstacles: newArrayObstacles })
   }
 
-  updateStates(states){
-    this.setState({states: states})
+  updateStates(states) {
+    this.setState({ states: states })
   }
 
   render() {
@@ -35,12 +36,17 @@ export default class App extends Component {
     } = this.state
     return (
       <div>
-        <Enviroment
-          obstacles={obstacles}
-          states={states}
-          updateStates={this.updateStates}
-          includeObstacle={this.includeObstacle}
-        />
+        <div>
+          <EviromentToolbar/>
+        </div>
+        <div>
+          <Enviroment
+            obstacles={obstacles}
+            states={states}
+            updateStates={this.updateStates}
+            includeObstacle={this.includeObstacle}
+          />
+        </div>
       </div>
     )
   }

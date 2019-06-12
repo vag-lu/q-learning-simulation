@@ -1,6 +1,5 @@
 .obstacle {
-    background-color: black;
-    height: 20px;
+    background-color: black;    
 }
 
 .state {
@@ -9,4 +8,8 @@
 
 .td {    
     border: 1px solid black;
+}
+
+.isHere {
+    background-color: blue;
 }

@@ -19,10 +19,17 @@ export default class Enviroment extends Component {
         let rowData = []
         this.defineObstacles(totalStates)
         //console.log(obstacles)
-        let i = 0
-        let j = 1
+        let i = 1
+        let j = 2
         let cont = 1
         console.log(totalStates)
+
+        rowData.push({
+            x: { i },
+            y: { j },
+            isHere: true,
+            obstacle: false
+        })
 
         while (j <= MATRIX_Y) {
 
@@ -30,7 +37,8 @@ export default class Enviroment extends Component {
 
             let state = {
                 x: { i },
-                y: { j }
+                y: { j },
+                isHere: false
             }
 
             if (obstacles.includes(cont)) {
@@ -49,7 +57,7 @@ export default class Enviroment extends Component {
                 enviromentData.push(rowData)
                 rowData = []
             }
-            
+
             cont++
         }
         console.log(enviromentData)
@@ -69,7 +77,7 @@ export default class Enviroment extends Component {
 
     createRow(row) {
         return row.map(state => (
-            <StateOfEnv state={state} />
+            <StateOfEnv cel={state} />
         ))
     }
 
@@ -82,10 +90,10 @@ export default class Enviroment extends Component {
         const numberOfObstacle = Math.round((percOfObstacles / 100) * totalStates)
 
         for (let i = 1; i <= numberOfObstacle; i++) {
-            let stateWithObstacle = Math.floor((Math.random() * totalStates)) + 1
+            let stateWithObstacle = Math.floor((Math.random() * totalStates - 2)) + 2
 
             while (obstacles.includes(stateWithObstacle)) {
-                stateWithObstacle = Math.floor((Math.random() * totalStates)) + 1
+                stateWithObstacle = Math.floor((Math.random() * totalStates - 2)) + 2
             }
 
             includeObstacle(stateWithObstacle)
