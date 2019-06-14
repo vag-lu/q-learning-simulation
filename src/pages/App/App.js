@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Enviroment from '../../components/Enviroment'
 import EviromentToolbar from '../../components/EviromentToolbar'
+import { MATRIX_X, MATRIX_Y } from '../../settings';
 
 export default class App extends Component {
   constructor(props) {
@@ -15,6 +16,10 @@ export default class App extends Component {
     this.updateStates = this.updateStates.bind(this)
   }
 
+  componentDidMount() {
+    this.initializeQTable()
+  }
+
   setQTable(qTable) {
     this.setState({ qTable: qTable })
   }
@@ -25,6 +30,23 @@ export default class App extends Component {
     this.setState({ obstacles: newArrayObstacles })
   }
 
+  initializeQTable() {
+    let initQTable = []
+    const tabLength = MATRIX_X * MATRIX_Y
+
+    for (let i = 0 ; i<tabLength ;  i++) {
+      initQTable.push({
+        state: i+1,
+        up: 0,
+        down: 0,
+        left: 0,
+        right:0
+      })
+    }
+
+    this.setQTable(initQTable)
+  }
+
   updateStates(states) {
     this.setState({ states: states })
   }
@@ -32,12 +54,13 @@ export default class App extends Component {
   render() {
     const {
       obstacles,
-      states
+      states,
+      qTable
     } = this.state
     return (
       <div>
         <div>
-          <EviromentToolbar/>
+          <EviromentToolbar />
         </div>
         <div>
           <Enviroment
@@ -45,6 +68,7 @@ export default class App extends Component {
             states={states}
             updateStates={this.updateStates}
             includeObstacle={this.includeObstacle}
+            qTable={qTable}
           />
         </div>
       </div>

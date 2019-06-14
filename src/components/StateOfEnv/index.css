@@ -1,5 +1,6 @@
 .obstacle {
-    background-color: black;    
+    background-color: black;   
+    color: white; 
 }
 
 .state {
@@ -8,8 +9,21 @@
 
 .td {    
     border: 1px solid black;
+    text-align: center;
+    cursor: default;
 }
 
 .isHere {
     background-color: blue;
+    color: white;
+}
+
+.isEnd {
+    background-color: green;
+    color: black;
+}
+
+.isStart {
+    background-color: yellow;
+    color: black;
 }

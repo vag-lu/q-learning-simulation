@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { MATRIX_X, MATRIX_Y } from '../../settings'
+import { MATRIX_X, MATRIX_Y, END_STATE, START_STATE } from '../../settings'
 import StateOfEnv from '../StateOfEnv';
 import './index.css'
 
@@ -14,21 +14,22 @@ export default class Enviroment extends Component {
             obstacles,
             updateStates
         } = this.props
+
         const totalStates = MATRIX_X * MATRIX_Y
         let enviromentData = []
         let rowData = []
-        this.defineObstacles(totalStates)
-        //console.log(obstacles)
         let i = 1
-        let j = 2
-        let cont = 1
-        console.log(totalStates)
+        let j = 1
+        let count = 2
+
+        this.defineObstacles(totalStates)        
 
         rowData.push({
-            x: { i },
-            y: { j },
+            x: i,
+            y: j,
             isHere: true,
-            obstacle: false
+            obstacle: false,
+            id: 1,
         })
 
         while (j <= MATRIX_Y) {
@@ -36,12 +37,23 @@ export default class Enviroment extends Component {
             i++
 
             let state = {
-                x: { i },
-                y: { j },
-                isHere: false
+                x: i,
+                y: j,
+                isHere: false,
+                id: count,
+                isEnd: false,
+                isStart: false
             }
 
-            if (obstacles.includes(cont)) {
+            if(count === END_STATE) {
+                state = { ...state, isEnd: true } 
+            }
+
+            if(count === START_STATE) {
+                state = { ...state, isStart: true } 
+            }
+
+            if (obstacles.includes(count)) {
                 state = { ...state, obstacle: true }
             } else {
                 state = {
@@ -58,7 +70,7 @@ export default class Enviroment extends Component {
                 rowData = []
             }
 
-            cont++
+            count++
         }
         console.log(enviromentData)
         updateStates(enviromentData)
@@ -76,8 +88,12 @@ export default class Enviroment extends Component {
     }
 
     createRow(row) {
+        const {
+            qTable
+        } = this.props
+
         return row.map(state => (
-            <StateOfEnv cel={state} />
+            <StateOfEnv cel={state} qState={qTable[state.id - 1]}/>
         ))
     }
 
