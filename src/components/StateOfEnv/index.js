@@ -12,8 +12,7 @@ export default class StateOfEnv extends Component {
         
         const half = MATRIX_X / 2
 
-        return (
-            
+        return (            
             <td className={`td ${cel.obstacle ? 'obstacle' : cel.isHere ? 'isHere' : 
                             cel.isStart ? 'isStart' : cel.isEnd ? 'isEnd' : 'state'}`}>
                 <Tooltip content={JSON.stringify(qState)} placement={(cel.x / half) <= 1 ? 'right' : 'left'}>

@@ -61,14 +61,15 @@ export default class App extends Component {
     for (let i = 0; i < tabLength; i++) {
       initQTable.push({
         state: i + 1,
-        up: 0,
-        down: 0,
-        left: 0,
-        right: 0
+        1 : 0,
+        2 : 0,
+        3 : 0,
+        4 : 0
       })
     }
 
     this.setQTable(initQTable)
+    console.log(initQTable)
   }
 
   updateStates(states) {

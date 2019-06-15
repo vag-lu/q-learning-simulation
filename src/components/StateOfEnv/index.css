@@ -7,10 +7,12 @@
     height: 20px;
 }
 
-.td {    
-    border: 1px solid black;
+.td {  
     text-align: center;
     cursor: default;
+    border: 1px solid black;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .isHere {
