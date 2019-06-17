@@ -2,19 +2,23 @@ import React, { Component } from 'react'
 import './App.css'
 import Enviroment from '../../components/Enviroment'
 import EviromentToolbar from '../../components/EviromentToolbar'
-import { MATRIX_X, MATRIX_Y, ALPHA, GAMMA} from '../../settings';
-import MenuDrawer from '../../components/MenuDrawer';
+import { MATRIX_X, MATRIX_Y, ALPHA, GAMMA, EPSILON} from '../../settings'
+import MenuDrawer from '../../components/MenuDrawer'
+import QLearning from '../../qlearning/qlearning'
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       qTable: [],
-      states: [],
+      statesTable: [],
       obstacles: [],
       openMenu: false,
       alpha: ALPHA,
       gamma: GAMMA,
+      epsilon: EPSILON,
+      start: false,
+      stop: true,
     }
     this.includeObstacle = this.includeObstacle.bind(this)
     this.updateStates = this.updateStates.bind(this)
@@ -40,11 +44,19 @@ export default class App extends Component {
     this.setState({ gamma })
   }
 
+  handleStart = () => {
+     this.setState({start: true, stop: false})
+  }
+
+  handleStop = () => {
+    this.setState({start: false, stop: true})
+  }
+
   componentDidMount() {
     this.initializeQTable()
   }
 
-  setQTable(qTable) {
+  setQTable= (qTable) => {
     this.setState({ qTable: qTable })
   }
 
@@ -60,11 +72,13 @@ export default class App extends Component {
 
     for (let i = 0; i < tabLength; i++) {
       initQTable.push({
-        state: i + 1,
-        1 : 0,
-        2 : 0,
-        3 : 0,
-        4 : 0
+        actions: {
+          0: 0,
+          1: 1,
+          2: 2,
+          3: 3
+        },
+        state: i + 1,        
       })
     }
 
@@ -72,25 +86,31 @@ export default class App extends Component {
     console.log(initQTable)
   }
 
-  updateStates(states) {
-    this.setState({ states: states })
+  updateStates(statesTable) {
+    this.setState({  statesTable })
   }
 
   render() {
     const {
       obstacles,
-      states,
+      statesTable,
       qTable,
       openMenu,
       alpha,
-      gamma
+      gamma,
+      start,
+      epsilon,
+      stop,
     } = this.state
 
     return (
       <div>
         <div>
           <EviromentToolbar
-            handleOpenMenu={this.handleOpenMenu} />
+            handleOpenMenu={this.handleOpenMenu}
+            handleStart={this.handleStart} 
+            handleStop={this.handleStop}
+            start={start}/>
           <MenuDrawer
             openMenu={openMenu}
             alpha={alpha}
@@ -103,12 +123,20 @@ export default class App extends Component {
         <div>
           <Enviroment
             obstacles={obstacles}
-            states={states}
+            states={statesTable}
             updateStates={this.updateStates}
             includeObstacle={this.includeObstacle}
             qTable={qTable}
           />
         </div>
+        {start && <QLearning
+                    qTable={qTable}
+                    stop={stop}
+                    statesTable={statesTable}
+                    alpha={alpha}
+                    gamma={gamma}
+                    epsilon={epsilon}
+                    setQTable={this.setQTable}/>}
       </div>
     )
   }

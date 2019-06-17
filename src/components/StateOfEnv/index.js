@@ -9,13 +9,14 @@ export default class StateOfEnv extends Component {
             cel,
             qState
         } = this.props
-        
+
         const half = MATRIX_X / 2
 
-        return (            
-            <td className={`td ${cel.obstacle ? 'obstacle' : cel.isHere ? 'isHere' : 
-                            cel.isStart ? 'isStart' : cel.isEnd ? 'isEnd' : 'state'}`}>
-                <Tooltip content={JSON.stringify(qState)} placement={(cel.x / half) <= 1 ? 'right' : 'left'}>
+        return (
+            <td className={`td ${cel.obstacle ? 'obstacle' : cel.isHere ? 'isHere' :
+                cel.isStart ? 'isStart' : cel.isEnd ? 'isEnd' : 'state'}`}>
+                <Tooltip content={JSON.stringify(qState) + ' - ' + JSON.stringify(cel)}
+                    placement={(cel.x / half) <= 1 ? 'right' : 'left'}>
                     {cel.id}
                 </Tooltip>
             </td >

@@ -23,7 +23,10 @@ class EviromentToolbar extends Component {
     render() {
         const {
             classes,
-            handleOpenMenu
+            handleOpenMenu,
+            handleStart,
+            handleStop,
+            start
         } = this.props
         
         return (
@@ -34,9 +37,12 @@ class EviromentToolbar extends Component {
                             onClick={handleOpenMenu} aria-label="Menu">
                             <MenuIcon />
                         </IconButton>
-                        <Button color="inherit">
+                        {!start && <Button color="inherit" onClick={handleStart}>
                             Start
-                        </Button>
+                        </Button>}
+                        {start && <Button color="inherit" onClick={handleStop}>
+                            Stop
+                        </Button>}
                     </Toolbar>
                 </AppBar>
             </div>

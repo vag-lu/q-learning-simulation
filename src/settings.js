@@ -5,6 +5,7 @@ const END_STATE = MATRIX_X * MATRIX_Y
 const START_STATE = 0
 const GAMMA = 0.7
 const ALPHA = 0.9
+const EPSILON = 0
 
 export {
     MATRIX_X,
@@ -13,5 +14,6 @@ export {
     END_STATE,
     START_STATE,
     GAMMA,
-    ALPHA
+    ALPHA,
+    EPSILON
 }
