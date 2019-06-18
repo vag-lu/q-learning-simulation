@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Enviroment from '../../components/Enviroment'
 import EviromentToolbar from '../../components/EviromentToolbar'
-import { MATRIX_X, MATRIX_Y, ALPHA, GAMMA, EPSILON} from '../../settings'
+import { MATRIX_X, MATRIX_Y, ALPHA, GAMMA, EPSILON } from '../../settings'
 import MenuDrawer from '../../components/MenuDrawer'
 import QLearning from '../../qlearning/qlearning'
 
@@ -45,19 +45,23 @@ export default class App extends Component {
   }
 
   handleStart = () => {
-     this.setState({start: true, stop: false})
+    this.setState({ start: true, stop: false })
   }
 
   handleStop = () => {
-    this.setState({start: false, stop: true})
+    this.setState({ start: false, stop: true })
   }
 
   componentDidMount() {
     this.initializeQTable()
   }
 
-  setQTable= (qTable) => {
+  setQTable = (qTable) => {
     this.setState({ qTable: qTable })
+  }
+
+  setStatesTable = (newStatesTable) => {
+    this.setState({statesTable: newStatesTable})
   }
 
   includeObstacle(newObstacle) {
@@ -74,11 +78,11 @@ export default class App extends Component {
       initQTable.push({
         actions: {
           0: 0,
-          1: 1,
-          2: 2,
-          3: 3
+          1: 0,
+          2: 0,
+          3: 0
         },
-        state: i + 1,        
+        state: i + 1,
       })
     }
 
@@ -87,7 +91,7 @@ export default class App extends Component {
   }
 
   updateStates(statesTable) {
-    this.setState({  statesTable })
+    this.setState({ statesTable })
   }
 
   render() {
@@ -108,9 +112,9 @@ export default class App extends Component {
         <div>
           <EviromentToolbar
             handleOpenMenu={this.handleOpenMenu}
-            handleStart={this.handleStart} 
+            handleStart={this.handleStart}
             handleStop={this.handleStop}
-            start={start}/>
+            start={start} />
           <MenuDrawer
             openMenu={openMenu}
             alpha={alpha}
@@ -130,13 +134,14 @@ export default class App extends Component {
           />
         </div>
         {start && <QLearning
-                    qTable={qTable}
-                    stop={stop}
-                    statesTable={statesTable}
-                    alpha={alpha}
-                    gamma={gamma}
-                    epsilon={epsilon}
-                    setQTable={this.setQTable}/>}
+          qTable={qTable}
+          stop={stop}
+          statesTable={statesTable}
+          alpha={alpha}
+          gamma={gamma}
+          epsilon={epsilon}
+          setQTable={this.setQTable} 
+          setStatesTable={this.setStatesTable}/>}
       </div>
     )
   }

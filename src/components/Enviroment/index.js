@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { MATRIX_X, MATRIX_Y, END_STATE, START_STATE } from '../../settings'
+import { MATRIX_X, MATRIX_Y, END_STATE, START_STATE, END_REWARD, GENERAL_REWARD } from '../../settings'
 import { UP, RIGHT, LEFT, DOWN } from "../../models/actions"
 import { MIDLE, 
          DOWN_LEFT_CORNER, 
@@ -54,11 +54,12 @@ export default class Enviroment extends Component {
                 id: count,
                 isEnd: false,
                 isStart: false,
+                reward: GENERAL_REWARD,
                 actions: []
             }           
 
             if (count === END_STATE) {
-                state = { ...state, isEnd: true }
+                state = { ...state, isEnd: true, reward: END_REWARD }
             }
 
             if (count === START_STATE) {
