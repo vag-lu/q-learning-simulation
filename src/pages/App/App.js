@@ -45,7 +45,22 @@ export default class App extends Component {
   }
 
   handleStart = () => {
-    this.setState({ start: true, stop: false })
+
+    const {
+      obstacles,
+      statesTable,
+      qTable,
+      openMenu,
+      alpha,
+      gamma,
+      start,
+      epsilon,
+      stop,
+    } = this.state
+    
+    //this.setState({ start: true, stop: false })
+     QLearning(qTable, stop, statesTable, alpha, gamma, epsilon,
+      this.setQTable, this.setStatesTable)
   }
 
   handleStop = () => {
@@ -133,15 +148,6 @@ export default class App extends Component {
             qTable={qTable}
           />
         </div>
-        {start && <QLearning
-          qTable={qTable}
-          stop={stop}
-          statesTable={statesTable}
-          alpha={alpha}
-          gamma={gamma}
-          epsilon={epsilon}
-          setQTable={this.setQTable} 
-          setStatesTable={this.setStatesTable}/>}
       </div>
     )
   }
